@@ -82,12 +82,12 @@ def take_photo():
 
         if accelx > THRESHOLD or accely > THRESHOLD or accelz > THRESHOLD:
             picam2.start()
-            time.wait(2.0)
+            time.sleep(2.0)
             name = img_gen("AlvinL")
             picam2.capture_file(name)
             git_push
 
-        time.wait(5.0)
+        time.sleep(5.0)
 
 
 
