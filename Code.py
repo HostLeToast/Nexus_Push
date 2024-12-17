@@ -95,7 +95,7 @@ def take_photo():
 
 def main():
     global capture_config
-    capture_config = picame2.create_still_configuration()
+    capture_config = picam2.create_still_configuration()
     picam2.start(show_preview=False)
     take_photo()
 
