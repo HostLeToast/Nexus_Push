@@ -84,7 +84,7 @@ def take_photo():
             picam2.start()
             time.sleep(2.0)
             name = img_gen("AlvinL")
-            picam2.capture_file(name)
+            picam2.switch_mode_and_capture_file(capture_config, name)
             git_push
 
         time.sleep(5.0)
@@ -94,6 +94,9 @@ def take_photo():
 
 
 def main():
+    global capture_config
+    capture_config = picame2.create_still_configuration()
+    picam2.start(show_preview=False)
     take_photo()
 
 
