@@ -84,7 +84,7 @@ def take_photo():
             picam2.start()
             time.sleep(2.0)
             name = img_gen("AlvinL")
-            picam2.switch_mode_and_capture_file(capture_config, name)
+            picam2.switch_mode_and_capture_file(capture_config, f'.name')
             git_push
 
         time.sleep(5.0)
