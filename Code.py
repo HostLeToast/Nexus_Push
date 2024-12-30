@@ -20,6 +20,7 @@ from adafruit_lsm6ds.lsm6dsox import LSM6DSOX as LSM6DS
 from adafruit_lis3mdl import LIS3MDL
 from git import Repo
 from picamera2 import Picamera2
+from libcamera import controls
 
 #VARIABLES
 THRESHOLD = 5.0      #Any desired value from the accelerometer
@@ -102,6 +103,7 @@ def take_photo():
 def main():
     global capture_config
     camera_config = picam2.create_still_configuration(main={"size": (1280, 720)})
+    picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
     picam2.start(show_preview=False)
     take_photo()
 
