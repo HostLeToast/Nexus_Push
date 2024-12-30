@@ -82,7 +82,7 @@ def take_photo():
 
         time.sleep(2.0)
         name = img_gen("AlvinL")
-        picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
+        #picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
         
         '''
         if accelx > THRESHOLD or accely > THRESHOLD or accelz > THRESHOLD:
@@ -101,7 +101,7 @@ def take_photo():
 
 def main():
     global capture_config
-    camera_config = camera.create_still_configuration(main={"size": (1280, 720)})
+    camera_config = camera.create_still_configuration()
     picam2.start(show_preview=False)
     take_photo()
 
