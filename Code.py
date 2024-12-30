@@ -102,7 +102,7 @@ def take_photo():
 def main():
     global capture_config
     camera_config = picam2.create_still_configuration(main={"size": (1280, 720)})
-    picam2.start(show_preview=True)
+    picam2.start(show_preview=False)
     take_photo()
 
 
