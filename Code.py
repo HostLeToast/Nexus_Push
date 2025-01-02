@@ -83,7 +83,8 @@ def take_photo():
 
         #time.sleep(2.0)
         name = img_gen("AlvinL")
-        picam2.capture_file(f'.{name}')
+        #picam2.capture_file(f'.{name}')
+        picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
 
         print("why isn't it taking a pic")
         
@@ -102,7 +103,9 @@ def take_photo():
 
 
 def main():
-    picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
+    global capture_config
+    capture_config = picam2.create_still_configuration(main={"size": (1920, 1080)})
+    #picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
     picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous, "LensPosition": 0.0})
     picam2.start(show_preview=False)
     print("code is loaded")
