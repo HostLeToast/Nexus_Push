@@ -102,7 +102,7 @@ def take_photo():
 
 def main():
     global capture_config
-    capture_config = picam2.create_still_configuration(main={"size": (4056, 3040)})
+    capture_config = picam2.create_continuous_configuration(main={"size": (4056, 3040)})
     #picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
     picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous, "LensPosition": 0.0})
     picam2.configure(config)
