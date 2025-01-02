@@ -81,7 +81,7 @@ def take_photo():
         
         #PAUSE
 
-        time.sleep(2.0)
+        #time.sleep(2.0)
         name = img_gen("AlvinL")
         picam2.capture_file(f'.{name}')
         
