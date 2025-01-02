@@ -5,7 +5,6 @@ an acceleration threshold (indicating a shake), your Pi should pause,
 trigger the camera to take a picture, then save the image with a
 descriptive filename. You may use GitHub to upload your images automatically,
 but for this activity it is not required.
-
 The provided functions are only for reference, you do not need to use them. 
 You will need to complete the take_photo() function and configure the VARIABLES section
 """
@@ -56,7 +55,6 @@ def git_push():
 def img_gen(name):
     """
     This function is complete. Generates a new image name.
-
     Parameters:
         name (str): your name ex. MasonM
     """
@@ -78,7 +76,7 @@ def take_photo():
             #name = ""     #First Name, Last Initial  ex. MasonM
             #TAKE PHOTO
             #PUSH PHOTO TO GITHUB
-        
+
         #PAUSE
 
         time.sleep(2.0)
