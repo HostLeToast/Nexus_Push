@@ -85,8 +85,6 @@ def take_photo():
         name = img_gen("AlvinL")
         #picam2.capture_file(f'.{name}')
         picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
-
-        print("why isn't it taking a pic")
         
         '''
         if accelx > THRESHOLD or accely > THRESHOLD or accelz > THRESHOLD:
@@ -104,12 +102,11 @@ def take_photo():
 
 def main():
     global capture_config
-    capture_config = picam2.create_still_configuration(main={"size": (1920, 1080)})
+    capture_config = picam2.create_still_configuration(main={"size": (3840, 2160)})
     #picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
     picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous, "LensPosition": 0.0})
     picam2.zoom = (0, 0, 1, 1)
     picam2.start(show_preview=False)
-    print("code is loaded")
     take_photo()
 
 
