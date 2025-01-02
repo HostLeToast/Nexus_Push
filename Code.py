@@ -81,7 +81,7 @@ def take_photo():
         
         #PAUSE
 
-        #time.sleep(2.0)
+        time.sleep(2.0)
         name = img_gen("AlvinL")
         #picam2.capture_file(f'.{name}')
         picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
@@ -107,6 +107,7 @@ def main():
     capture_config = picam2.create_still_configuration(main={"size": (1920, 1080)})
     #picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
     picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous, "LensPosition": 0.0})
+    picam2.zoom = (0, 0, 1, 1)
     picam2.start(show_preview=False)
     print("code is loaded")
     take_photo()
