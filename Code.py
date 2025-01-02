@@ -83,8 +83,8 @@ def take_photo():
 
         time.sleep(2.0)
         name = img_gen("AlvinL")
-        picam2.capture_file(f'.{name}')
-        #picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
+        #picam2.capture_file(f'.{name}')
+        picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
         
         '''
         if accelx > THRESHOLD or accely > THRESHOLD or accelz > THRESHOLD:
@@ -102,8 +102,8 @@ def take_photo():
 
 def main():
     global capture_config
-    #capture_config = picam2.create_continuous_configuration(main={"size": (4056, 3040)})
-    picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
+    capture_config = picam2.create_continuous_configuration(main={"size": (1920, 1080)})
+    #picam2.configure(picam2.create_still_configuration(main={"size": (1920, 1080)}))
     picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous, "LensPosition": 0.0})
     #picam2.configure(capture_config)
     picam2.zoom = (0, 0, 1, 1)
