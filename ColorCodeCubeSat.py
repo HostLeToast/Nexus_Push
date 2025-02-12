@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+from picamera2.array import PiRGBArray
+from picamera2 import PiCamera2
 
 # Initialize the Pi Camera
 camera = PiCamera()
