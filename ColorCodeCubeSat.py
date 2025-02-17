@@ -1,9 +1,10 @@
 import os
-os.environ['QT_QPA_PLATFORM'] = 'offscreen'
-
 import cv2
 import numpy as np
 from picamera2 import Picamera2
+
+# Set environment variable for headless operation
+os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 
 # Initialize the Pi Camera
 camera = Picamera2()
@@ -29,14 +30,22 @@ while True:
     # Apply the mask to the original frame
     result = cv2.bitwise_and(frame, frame, mask=mask)
     
-    # Show the frames
-    cv2.imshow("Original", frame)
-    cv2.imshow("Mask", mask)
-    cv2.imshow("Result", result)
+    # Use OpenCV to save the frames instead of showing them directly
+    cv2.imwrite("original.jpg", frame)
+    cv2.imwrite("mask.jpg", mask)
+    cv2.imwrite("result.jpg", result)
     
+    # Simulate displaying the image
+    print("Images saved. Press 'q' to exit.")
+
     # Exit on pressing 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
+# Release resources
+cv2.destroyAllWindows()
+camera.stop()
+
 
 # Release resources
 cv2.destroyAllWindows()
