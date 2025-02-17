@@ -4,7 +4,7 @@ from picamera2 import Picamera2
 from picamera2.array import PiRGBArray
 
 # Initialize the Pi Camera
-camera = PiCamera()
+camera = Picamera2()
 camera.resolution = (640, 480)
 camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(640, 480))
