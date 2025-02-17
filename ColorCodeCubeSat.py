@@ -38,4 +38,3 @@ while True:
 # Release resources
 cv2.destroyAllWindows()
 camera.stop()
-)
