@@ -1,5 +1,5 @@
 import os
-os.environ['QT_QPA_PLATFORM'] = 'offscreen'
+#os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 
 import cv2
 import numpy as np
@@ -30,9 +30,9 @@ while True:
     result = cv2.bitwise_and(frame, frame, mask=mask)
     
     # Show the frames
-    cv2.imshow("Original", frame)
-    cv2.imshow("Mask", mask)
-    cv2.imshow("Result", result)
+    #cv2.imshow("Original", frame)
+    #cv2.imshow("Mask", mask)
+    #cv2.imshow("Result", result)
     
     # Exit on pressing 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
