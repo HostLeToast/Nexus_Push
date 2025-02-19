@@ -22,6 +22,8 @@ while True:
     
     # Capture frame-by-frame
     frame = camera.capture_array()
+    frame = frame[:, :, :3]  # Remove the alpha channel
+    frame = cv2.cvtColor(frame, cv2.COLOR_XBGR2BGR)
     
     # Convert BGR to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
