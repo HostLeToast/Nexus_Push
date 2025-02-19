@@ -1,6 +1,4 @@
 import os
-#os.environ['QT_QPA_PLATFORM'] = 'offscreen'
-
 import cv2
 import numpy as np
 from picamera2 import Picamera2
@@ -26,18 +24,15 @@ while True:
     # Create a mask for the defined color range
     mask = cv2.inRange(hsv, lower_bound, upper_bound)
     
-    # Apply the mask to the original frame
-    result = cv2.bitwise_and(frame, frame, mask=mask)
-    
-    # Show the frames
-    #cv2.imshow("Original", frame)
-    #cv2.imshow("Mask", mask)
-    #cv2.imshow("Result", result)
-    
+    # Calculate black pixel ratio
+    total_pixels = mask.size  # Total number of pixels in the image
+    black_pixels = np.count_nonzero(mask == 0)  # Pixels that are black (value 0)
+    black_pixel_ratio = black_pixels / total_pixels
+
+    print(f"Black Pixels: {black_pixels}, Total Pixels: {total_pixels}, Black Pixel Ratio: {black_pixel_ratio:.4f}")
+
     # Exit on pressing 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Release resources
-cv2.destroyAllWindows()
 camera.stop()
