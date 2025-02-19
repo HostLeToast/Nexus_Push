@@ -3,15 +3,15 @@ import numpy as np
 from picamera2 import Picamera2
 import time
 
-# Initialize camera
+# initialize
 camera = Picamera2()
 camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
 camera.start()
-camera.set_controls({"ExposureTime": 30000, "AnalogueGain": 4.0})  # Adjust brightness
+camera.set_controls({"ExposureTime": 30000, "AnalogueGain": 4.0})  # brightness
 
-print("Press 'q' to exit")
+start_time = time.time()
 
-while True:
+while (time.time() - start_time) < 120:
     frame = camera.capture_array()
 
     # convert XBGR to BGR manually
