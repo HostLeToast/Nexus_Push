@@ -1,21 +1,21 @@
-import os
 import cv2
 import numpy as np
 from picamera2 import Picamera2
 
-#init
+# Initialize the Pi Camera
 camera = Picamera2()
 camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
 camera.start()
 
-#hsv def
-lower_bound = np.array([0, 120, 70])   # lower bound
-upper_bound = np.array([10, 255, 255]) # upper bound
+print("Press 'q' to exit")
 
 while True:
-    # capture frames
+    # Capture frame as an array
     frame = camera.capture_array()
     
+    # Convert to HSV
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
     # Define the HSV range for red color
     lower_red1 = np.array([0, 120, 70])   # Lower red range
     upper_red1 = np.array([10, 255, 255])
@@ -32,6 +32,10 @@ while True:
     red_pixels = np.count_nonzero(red_mask)  # Count red pixels (non-zero values)
     red_pixel_ratio = red_pixels / total_pixels  # Ratio of red pixels
 
-    print(f"Black Pixels: {black_pixels}, Total Pixels: {total_pixels}, Black Pixel Ratio: {black_pixel_ratio:.4f}")
+    print(f"Red Pixels: {red_pixels}, Total Pixels: {total_pixels}, Red Pixel Ratio: {red_pixel_ratio:.4f}")
+
+    # Exit on pressing 'q'
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
 camera.stop()
