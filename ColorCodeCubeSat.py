@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from picamera2 import Picamera2
+import time
 
 # Initialize camera
 camera = Picamera2()
@@ -31,7 +32,6 @@ while True:
 
     print(f"Black Pixels: {black_pixels}, Total Pixels: {total_pixels}, Ratio: {black_pixel_ratio:.4f}")
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    time.sleep(5)
 
 camera.stop()
