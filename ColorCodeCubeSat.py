@@ -15,6 +15,10 @@ upper_bound = np.array([10, 255, 255]) # Upper HSV bounds
 print("Press 'q' to exit")
 
 while True:
+
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    print("HSV (Center pixel):", hsv[frame.shape[0]//2, frame.shape[1]//2])
+    
     # Capture frame-by-frame
     frame = camera.capture_array()
 
