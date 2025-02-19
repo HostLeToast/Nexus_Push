@@ -14,16 +14,15 @@ upper_bound = np.array([10, 255, 255]) # Upper HSV bounds
 
 print("Press 'q' to exit")
 
-while True:
-
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    print("HSV (Center pixel):", hsv[frame.shape[0]//2, frame.shape[1]//2])
-    
+while True:    
     # Capture frame-by-frame
     frame = camera.capture_array()
 
     frame = frame[:, :, [2, 1, 0]]  # Convert from XBGR to BGR
     frame = frame[:, :, :3]
+
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    print("HSV (Center pixel):", hsv[frame.shape[0]//2, frame.shape[1]//2])
     
     # Convert BGR to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
