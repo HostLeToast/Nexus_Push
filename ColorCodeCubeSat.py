@@ -5,7 +5,7 @@ from picamera2 import Picamera2
 
 # Initialize the Pi Camera
 camera = Picamera2()
-camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
+camera.configure(camera.create_video_configuration())
 camera.start()
 
 # Define HSV color range for detection (e.g., red color)
