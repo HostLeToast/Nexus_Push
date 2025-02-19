@@ -6,7 +6,7 @@ from picamera2 import Picamera2
 camera = Picamera2()
 camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
 camera.start()
-camera.set_controls({"ExposureTime": 20000, "AnalogueGain": 4.0})  # Brighten the image
+camera.set_controls({"ExposureTime": 30000, "AnalogueGain": 4.0})  # Adjust brightness
 
 print("Press 'q' to exit")
 
@@ -24,8 +24,8 @@ while True:
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     print("HSV (Center pixel):", hsv[frame.shape[0]//2, frame.shape[1]//2])
 
-    # White detection
-    lower_white = np.array([0, 0, 200])
+    # Adjust white detection range
+    lower_white = np.array([0, 0, 180])  # Loosen the brightness limit
     upper_white = np.array([180, 50, 255])
     mask = cv2.inRange(hsv, lower_white, upper_white)
 
@@ -35,8 +35,9 @@ while True:
 
     print(f"Black Pixels: {black_pixels}, Total Pixels: {total_pixels}, Ratio: {black_pixel_ratio:.4f}")
 
-    # Save an image for checking
-    cv2.imwrite("debug_frame.jpg", frame)
+    # Save an image and mask for debugging
+    #cv2.imwrite("debug_frame.jpg", frame)
+    #cv2.imwrite("debug_mask.jpg", mask)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
