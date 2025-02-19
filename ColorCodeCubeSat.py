@@ -15,6 +15,11 @@ upper_bound = np.array([10, 255, 255]) # Upper HSV bounds
 print("Press 'q' to exit")
 
 while True:
+
+    frame = camera.capture_array()
+    print("Frame shape:", frame.shape)
+    print("Sample pixel values:", frame[0, 0])
+    
     # Capture frame-by-frame
     frame = camera.capture_array()
     
