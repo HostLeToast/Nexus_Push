@@ -9,7 +9,36 @@ camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
 camera.start()
 camera.set_controls({"ExposureTime": 30000, "AnalogueGain": 4.0})  # brightness
 
+REPO_PATH = "/home/pi/Nexus_Push/Nexus_Push"
+FOLDER_PATH = "images"
+
 start_time = time.time()
+
+def git_push():
+    try:
+        repo = Repo(REPO_PATH)
+        origin = repo.remote('origin')
+        print('added remote')
+        origin.pull()
+        print('pulled changes')
+        repo.git.add(REPO_PATH + FOLDER_PATH)
+        repo.index.commit('New Photo')
+        print('made the commit')
+        origin.push()
+        print('pushed changes')
+    except:
+        print('Couldn\'t upload to git')
+
+def img_gen(name):
+    t = time.strftime("_%H%M%S")
+    imgname = (f'{REPO_PATH}/{FOLDER_PATH}/{name}{t}.jpg')
+    return imgname
+
+def take_photo():
+    accelx, accely, accelz = accel_gyro.acceleration
+    name = img_gen("LargeDarkAreaCoverage")
+    picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
+    git_push()
 
 while (time.time() - start_time) < 120:
     frame = camera.capture_array()
@@ -22,15 +51,24 @@ while (time.time() - start_time) < 120:
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # fix white detection
-    lower_white = np.array([0, 0, 180])
-    upper_white = np.array([180, 50, 255])
+    lower_white = np.array([0, 0, 30])
+    upper_white = np.array([180, 50, 120])
     mask = cv2.inRange(hsv, lower_white, upper_white)
 
     total_pixels = mask.size
-    black_pixels = np.count_nonzero(mask == 0)
-    black_pixel_ratio = black_pixels / total_pixels
+    dark_pixels = np.count_nonzero(mask == 0)
+    dark_pixel_ratio = dark_pixels / total_pixels
 
-    print(f"Black Pixels: {black_pixels}, Total Pixels: {total_pixels}, Ratio: {black_pixel_ratio:.4f}")
+    print(f"Dark Pixels: {dark_pixels}, Total Pixels: {total_pixels}, Ratio: {dark_pixel_ratio:.4f}")
+
+    #if over threshold, send image to groundstation
+    if dark_pixel_ratio > 0.25:
+        global capture_config
+        capture_config = picam2.create_still_configuration()
+        picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
+        picam2.zoom = (0, 0, 1, 1)
+        picam2.start(show_preview=False)
+        take_photo()
 
     time.sleep(5)
 
