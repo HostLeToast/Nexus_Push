@@ -59,7 +59,7 @@ while (time.time() - start_time) < 120:
     dark_pixels = np.count_nonzero(mask == 0)
     dark_pixel_ratio = dark_pixels / total_pixels
 
-    print(f"Dark Pixels: {dark_pixels}, Total Pixels: {total_pixels}, Ratio: {dark_pixel_ratio:.4f}")
+    print(f"Smoke to Total Area Ratio: {dark_pixel_ratio:.4f}")
 
     #if over threshold, send image to groundstation
     if dark_pixel_ratio > 0.25:
