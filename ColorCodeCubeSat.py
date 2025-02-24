@@ -4,7 +4,7 @@ from picamera2 import Picamera2
 import time
 
 # initialize
-camera = Picamera2()
+camera = picam2()
 camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
 camera.start()
 camera.set_controls({"ExposureTime": 30000, "AnalogueGain": 4.0})  # brightness
