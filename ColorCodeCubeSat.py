@@ -4,7 +4,7 @@ from picamera2 import Picamera2
 import time
 
 # initialize
-camera = picam2()
+camera = Picamera2()
 camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
 camera.start()
 camera.set_controls({"ExposureTime": 30000, "AnalogueGain": 4.0})  # brightness
@@ -37,7 +37,7 @@ def img_gen(name):
 def take_photo():
     accelx, accely, accelz = accel_gyro.acceleration
     name = img_gen("LargeDarkAreaCoverage")
-    picam2.switch_mode_and_capture_file(capture_config, f'.{name}')
+    camera.switch_mode_and_capture_file(capture_config, f'.{name}')
     git_push()
 
 while (time.time() - start_time) < 120:
@@ -64,10 +64,10 @@ while (time.time() - start_time) < 120:
     #if over threshold, send image to groundstation
     if dark_pixel_ratio > 0.25:
         global capture_config
-        capture_config = picam2.create_still_configuration()
-        picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
-        picam2.zoom = (0, 0, 1, 1)
-        picam2.start(show_preview=False)
+        capture_config = camera.create_still_configuration()
+        camera.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
+        camera.zoom = (0, 0, 1, 1)
+        camera.start(show_preview=False)
         take_photo()
 
     time.sleep(5)
