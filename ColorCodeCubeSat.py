@@ -36,7 +36,6 @@ def img_gen(name):
     return imgname
 
 def take_photo():
-    accelx, accely, accelz = accel_gyro.acceleration
     name = img_gen("LargeDarkAreaCoverage")
     camera.switch_mode_and_capture_file(capture_config, f'.{name}')
     git_push()
