@@ -13,7 +13,7 @@ camera.start()
 camera.set_controls({"ExposureTime": 30000, "AnalogueGain": 4.0})  # Adjust brightness
 
 # Git Repository Paths
-REPO_PATH = "/home/nexus/Nexus_Push/Nexus_Push"
+REPO_PATH = "/home/nexus/Nexus_Push"
 FOLDER_PATH = "images"
 
 # Set up capture configuration
