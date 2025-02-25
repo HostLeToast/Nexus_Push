@@ -4,6 +4,7 @@ from picamera2 import Picamera2
 import time
 from libcamera import controls
 from git import Repo
+import os
 
 # Initialize Camera
 camera = Picamera2()
@@ -73,6 +74,7 @@ while (time.time() - start_time) < 120:
     if dark_pixel_ratio > 0.25:
         camera.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
         camera.start(show_preview=False)
+        os.makedirs(f"{REPO_PATH}/{FOLDER_PATH}", exist_ok=True)
         take_photo()
 
     time.sleep(5)
