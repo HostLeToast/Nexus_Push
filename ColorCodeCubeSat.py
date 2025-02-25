@@ -3,7 +3,6 @@ import numpy as np
 from picamera2 import Picamera2
 import time
 from libcamera import controls
-from git import Repo
 
 # Initialize Camera
 camera = Picamera2()
