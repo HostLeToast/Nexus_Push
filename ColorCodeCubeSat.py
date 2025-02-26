@@ -60,7 +60,7 @@ while (time.time() - start_time) < 120:
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # Define range for dark shades (adjust as needed)
-    lower_white = np.array([0, 0, 15])
+    lower_white = np.array([0, 0, 0])
     upper_white = np.array([180, 50, 120])
     mask = cv2.inRange(hsv, lower_white, upper_white)
 
