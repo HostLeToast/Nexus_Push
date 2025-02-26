@@ -61,7 +61,7 @@ while (time.time() - start_time) < 120:
 
     # Define range for dark colors (low brightness values)
     lower_dark = np.array([0, 0, 0])      # Very dark shades
-    upper_dark = np.array([180, 255, 50]) # Maximum darkness range
+    upper_dark = np.array([31, 4, 50]) # Maximum darkness range
 
     # Create mask for dark colors
     mask = cv2.inRange(hsv, lower_dark, upper_dark)
