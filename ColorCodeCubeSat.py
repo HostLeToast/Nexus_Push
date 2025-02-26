@@ -70,8 +70,8 @@ while (time.time() - start_time) < 120:
 
     print(f"Smoke to Total Area Ratio: {dark_pixel_ratio:.4f}")
 
-    # If the ratio exceeds 25%, take a photo and upload
-    if dark_pixel_ratio > 0.25:
+    # If the ratio exceeds 80%, take a photo and upload
+    if dark_pixel_ratio > 0.8:
         camera.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
         camera.start(show_preview=False)
         os.makedirs(f"{REPO_PATH}/{FOLDER_PATH}", exist_ok=True)
