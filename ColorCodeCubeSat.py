@@ -44,7 +44,7 @@ def img_gen(name):
 
 # Capture Photo and Upload
 def take_photo():
-    name = img_gen("LargeDarkAreaCoverage")
+    name = img_gen("SmokeDetected")
     camera.switch_mode_and_capture_file(capture_config, name)  # Fixed path issue
     git_push()
 
@@ -59,19 +59,29 @@ while (time.time() - start_time) < 120:
     # Convert to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Define range for dark shades (adjust as needed)
-    lower_white = np.array([0, 0, 0])
-    upper_white = np.array([180, 50, 120])
-    mask = cv2.inRange(hsv, lower_white, upper_white)
+    # Define range for smoke (light gray/white with low saturation)
+    lower_smoke = np.array([0, 0, 80])   # Hue: 0-180, Low Sat, Mid-High Brightness
+    upper_smoke = np.array([180, 50, 200])  # Allow some variance in brightness
 
-    total_pixels = mask.size
-    dark_pixels = np.count_nonzero(mask == 0)
-    dark_pixel_ratio = dark_pixels / total_pixels
+    # Apply smoke mask
+    mask = cv2.inRange(hsv, lower_smoke, upper_smoke)
 
-    print(f"Smoke to Total Area Ratio: {dark_pixel_ratio:.4f}")
+    # Apply Gaussian blur to reduce noise
+    blurred = cv2.GaussianBlur(mask, (5, 5), 0)
 
-    # If the ratio exceeds 80%, take a photo and upload
-    if dark_pixel_ratio > 0.8:
+    # Apply morphological operations to clean up noise
+    kernel = np.ones((5, 5), np.uint8)
+    mask_cleaned = cv2.morphologyEx(blurred, cv2.MORPH_CLOSE, kernel)
+
+    # Calculate smoke coverage ratio
+    total_pixels = mask_cleaned.size
+    smoke_pixels = np.count_nonzero(mask_cleaned)
+    smoke_ratio = smoke_pixels / total_pixels
+
+    print(f"Smoke to Total Area Ratio: {smoke_ratio:.4f}")
+
+    # If smoke is detected above threshold, capture image
+    if smoke_ratio > 0.10:  # Adjust threshold as needed
         camera.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
         camera.start(show_preview=False)
         os.makedirs(f"{REPO_PATH}/{FOLDER_PATH}", exist_ok=True)
