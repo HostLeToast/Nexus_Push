@@ -59,16 +59,22 @@ while (time.time() - start_time) < 120:
     # Convert to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Define range for dark shades (adjust as needed)
-    lower_white = np.array([0, 0, 30])
-    upper_white = np.array([180, 50, 120])
-    mask = cv2.inRange(hsv, lower_white, upper_white)
+    # Define range for dark colors (low brightness values)
+    lower_dark = np.array([0, 0, 0])      # Very dark shades
+    upper_dark = np.array([180, 255, 50]) # Maximum darkness range
+
+    # Create mask for dark colors
+    mask = cv2.inRange(hsv, lower_dark, upper_dark)
+
+    # Apply morphological operations to refine mask
+    kernel = np.ones((5,5), np.uint8)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 
     total_pixels = mask.size
-    dark_pixels = np.count_nonzero(mask == 0)
+    dark_pixels = np.count_nonzero(mask)  # Detect dark areas
     dark_pixel_ratio = dark_pixels / total_pixels
 
-    print(f"Smoke to Total Area Ratio: {dark_pixel_ratio:.4f}")
+    print(f"Dark Area to Total Area Ratio: {dark_pixel_ratio:.4f}")
 
     # If the ratio exceeds 25%, take a photo and upload
     if dark_pixel_ratio > 0.25:
