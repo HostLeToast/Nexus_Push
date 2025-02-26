@@ -81,7 +81,7 @@ while (time.time() - start_time) < 120:
     print(f"Smoke to Total Area Ratio: {smoke_ratio:.4f}")
 
     # If smoke is detected above threshold, capture image
-    if smoke_ratio > 0.10:  # Adjust threshold as needed
+    if smoke_ratio > 0.25:  # Adjust threshold as needed
         camera.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
         camera.start(show_preview=False)
         os.makedirs(f"{REPO_PATH}/{FOLDER_PATH}", exist_ok=True)
