@@ -60,7 +60,7 @@ while (time.time() - start_time) < 120:
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # Define range for smoke (light gray/white with low saturation)
-    lower_smoke = np.array([0, 0, 80])   # Hue: 0-180, Low Sat, Mid-High Brightness
+    lower_smoke = np.array([0, 0, 30])   # Hue: 0-180, Low Sat, Mid-High Brightness
     upper_smoke = np.array([180, 50, 200])  # Allow some variance in brightness
 
     # Apply smoke mask
