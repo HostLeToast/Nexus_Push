@@ -59,9 +59,9 @@ while (time.time() - start_time) < 120:
     # Convert to HSV
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Define range for smoke (light gray/white with low saturation)
-    lower_smoke = np.array([0, 0, 20])   # Hue: 0-180, Low Sat, Mid-High Brightness
-    upper_smoke = np.array([180, 50, 200])  # Allow some variance in brightness
+    # Define range for detecting a wider range of gray shades
+    lower_smoke = np.array([0, 0, 30])     # Low saturation, allow darker shades
+    upper_smoke = np.array([180, 80, 220]) # Higher brightness range and slightly more color
 
     # Apply smoke mask
     mask = cv2.inRange(hsv, lower_smoke, upper_smoke)
@@ -81,7 +81,7 @@ while (time.time() - start_time) < 120:
     print(f"Smoke to Total Area Ratio: {smoke_ratio:.4f}")
 
     # If smoke is detected above threshold, capture image
-    if smoke_ratio > 0.3:  # Adjust threshold as needed
+    if smoke_ratio > 0.2:  # Lower threshold to be more sensitive
         camera.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
         camera.start(show_preview=False)
         os.makedirs(f"{REPO_PATH}/{FOLDER_PATH}", exist_ok=True)
