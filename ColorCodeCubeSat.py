@@ -61,7 +61,7 @@ while (time.time() - start_time) < 120:
 
     # Define range for detecting a wider range of gray shades
     lower_smoke = np.array([0, 0, 30])     # Low saturation, allow darker shades
-    upper_smoke = np.array([180, 80, 220]) # Higher brightness range and slightly more color
+    upper_smoke = np.array([180, 80, 300]) # Higher brightness range and slightly more color
 
     # Apply smoke mask
     mask = cv2.inRange(hsv, lower_smoke, upper_smoke)
